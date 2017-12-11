@@ -7,13 +7,13 @@ from models import Ship
 import sys
 cargo_capacity = 7300 #default tayra = 7300
 isk = 386000000
-location = 'Amarr'
-jumps = 15
+location = 'Nourvukaiken'
+jumps = 25
 
 solar_system = solar_system_by_name(location)
 regions = all_region_ids()
 
-paths = map_solarsystem_jumps('30002552', jumps)
+paths = map_solarsystem_jumps(str(solar_system['solarSystemID']), jumps)
 regions = get_involved_regions_from_paths(paths)
 
 #url = 'https://esi.tech.ccp.is/latest/markets/' + str(solar_system['regionID']) + '/orders/?datasource=tranquility&order_type=sell&page=1'
@@ -132,7 +132,7 @@ for ss in mb.keys():
                                         capacity = volume * item_by_id(typeid)['volume']
                                         if capacity <= cargo_capacity:
                                             #desc = str(volume) + " " + item_by_id(typeid)['typeName'] + ". From: " + station_by_id(item2['location'])['stationName'] + " To: " + station_by_id(item['location'])['stationName'] + ". Capacity: " + str(volume * item_by_id(typeid)['volume'])
-                                            desc = str(volume) + ' of ' + item_by_id(typeid)['typeName'] + '. ' + '. Capacity: ' + str(capacity)
+                                            desc = str(volume) + ' of ' + item_by_id(typeid)['typeName'] + '. ' + 'Capacity: ' + str(capacity) + ' From: ' + station_by_id(item2['location_id'])['stationName'] + ' To: ' + station_by_id(item['location_id'])['stationName']
                                             found.append([b, s, p, desc])
                     except: 
                         pass
@@ -169,6 +169,9 @@ for line in sort[:100]:
 #            #use min(capacity,required_capacity) and calculate difference based off the min
             #put this into a dict, sort top down by difference, remove ones with higher than required min capacity
 
+#!!!!!!!if mb range is region, say ANYWHERE IN REGION (X). range "region" or number. what is number?
+#jumps appear off, length is longer than expected in-game
+#allow wh to be used
 #multiple b or s put together
 #if multiple pages per region
 #eventually include region wide
