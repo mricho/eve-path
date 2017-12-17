@@ -15,7 +15,12 @@ def dfs_paths(graph, start, jumps):
             else:
                 stack.append((next, path + [next]))
     
-def map_solarsystem_jumps(solar_system, jumps):
+def map_solarsystem_jumps(location, connected_systems, jumps):
+    solar_system = str(solar_system_by_name(location)['solarSystemID'])
+    hole_connections = []
+    for system in connected_systems:
+        hole_connections.append(str(solar_system_by_name(system)['solarSystemID']))
+
     c.execute('SELECT fromSolarSystemID, toSolarSystemID FROM mapSolarSystemJumps')
     jump_map = c.fetchall()
     graph = {}
@@ -24,6 +29,12 @@ def map_solarsystem_jumps(solar_system, jumps):
             graph[str(jump[0])].add(str(jump[1]))
         except:
             graph[str(jump[0])] = set([str(jump[1])])
+    graph['31000735'] = set(hole_connections)
+    for connection in hole_connections:
+        try:
+            graph[str(connection)].add('31000735')
+        except:
+            graph[str(connection)] = set (['31000735'])
     paths = list(dfs_paths(graph, solar_system, jumps))
     #print paths
     #get all involved solar systems from paths

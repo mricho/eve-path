@@ -5,15 +5,20 @@ import time
 from retry import retry
 from models import Ship
 import sys
-cargo_capacity = 7300 #default tayra = 7300
+cargo_capacity = 18913 #tayra with 3 expandeds = 18913
 isk = 386000000
-location = 'Nourvukaiken'
-jumps = 25
+location = 'J143234'
+jumps = 5
 
-solar_system = solar_system_by_name(location)
+#connected_systems = []
+connected_systems = ['Fluekele']
+
 regions = all_region_ids()
 
-paths = map_solarsystem_jumps(str(solar_system['solarSystemID']), jumps)
+paths = map_solarsystem_jumps(location, connected_systems, jumps)
+#for path in paths:
+#    for system in path:
+#        print solar_system_by_id(system)['solarSystemName']
 regions = get_involved_regions_from_paths(paths)
 
 #url = 'https://esi.tech.ccp.is/latest/markets/' + str(solar_system['regionID']) + '/orders/?datasource=tranquility&order_type=sell&page=1'
