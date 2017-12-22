@@ -3,6 +3,14 @@ import sqlite3
 conn = sqlite3.connect('sqlite-latest.sqlite')
 c = conn.cursor()
 
+npc_null_regions = ['Curse', 'Delve', 'Geminate', 'Great Wildlands', 'Outer Ring', 'Stain', 'Syndicate', 'Venal']
+
+npc_null_region_ids = []
+
+for region in npc_null_regions:
+    c.execute('SELECT regionID FROM mapRegions WHERE regionName=?', (region,))
+    npc_null_region_ids.append(str(c.fetchone()[0]))
+
 def dfs_paths(graph, start, jumps):
     stack = [(start, [start])]
     while stack:

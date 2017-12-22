@@ -5,13 +5,13 @@ import time
 from retry import retry
 from models import Ship
 import sys
-cargo_capacity = 18913 #tayra with 3 expandeds = 18913
-isk = 386000000
+cargo_capacity = 818913 #tayra with 3 expandeds = 18913
+isk = 1286000000
 location = 'J143234'
-jumps = 5
+jumps = 10
 
 #connected_systems = []
-connected_systems = ['Fluekele']
+connected_systems = ['Esesier']
 
 regions = all_region_ids()
 
@@ -144,6 +144,9 @@ for ss in mb.keys():
 from operator import itemgetter
 sort = sorted(found, key=itemgetter(2))
 sort.reverse()
+
+#for prof in sort[:100]:
+#    loc = prof[]
 for line in sort[:100]:
     print line
 #print "Analyzing..."
@@ -175,9 +178,9 @@ for line in sort[:100]:
             #put this into a dict, sort top down by difference, remove ones with higher than required min capacity
 
 #!!!!!!!if mb range is region, say ANYWHERE IN REGION (X). range "region" or number. what is number?
-#jumps appear off, length is longer than expected in-game
-#allow wh to be used
+#only show null sec stations if within npc regions
 #multiple b or s put together
+#jumps appear off, length is longer than expected in-game
 #if multiple pages per region
 #eventually include region wide
 #include if reprocess
